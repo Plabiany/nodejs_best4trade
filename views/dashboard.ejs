@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<head>
+  <title>Best4Trade</title>
+  <style>
+    body{
+      background-color: black;
+      color: white;
+      font-family: arial;
+    }      
+
+    table{
+      border-collapse:collapse;
+      width: 100%;
+    }      
+
+    .yellow_td{
+      border-right: 3px solid yellow;
+    }      
+
+    input:not(:focus):invalid {
+      color:transparent;
+    }      
+
+    input[type=text], input[type=number], select{
+        width: 60px;
+        border: none;
+        color: #fff;
+        background-color: black;
+        text-align: right;
+        -moz-appearance:textfield;
+    }      
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }      
+
+    input[type="date"] {
+      size:10;
+    }      
+
+    .button{
+      background-color: #555555;
+      border-radius: 3px;
+      padding: 8px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1px 6px;
+      margin:1px 55px;
+      margin-right: 30%;
+      margin-left: 55%;
+      margin-right: auto;
+      cursor: pointer;
+    }      
+
+    .border_yellow{
+      border-bottom: 4px solid yellow;
+    }      
+
+    .td_layout{
+      text-align: center;
+      font-size: 15px;
+    }      
+
+    .textBorder{
+      border-radius: 3px;
+    }      
+
+    .putInput{
+      background-color: grey;
+      border-radius: 3px;
+    }      
+
+    .IMGcenter {
+        display: block;
+        margin-top: 0%;
+        margin-left: 0%;
+        margin-right: auto;
+        width: 10%;
+        align-items: center;
+    }      
+
+    .myTableStyle
+    {
+        width:300px;
+        height:300px;
+        position:fixed;
+        margin-left:-150px; /* half of width */
+        margin-top:-150px;  /* half of height */
+        top:50%;
+        left:50%;
+        font-family: 'Bookman Old Style';
+    }
+    .bbutton {
+      background-color: black; /* Green */
+      border-radius: 12px;
+      color: white;
+      padding: 9px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+    }      
+
+    html {
+      scrollbar-face-color: #646464;
+      scrollbar-base-color: #646464;
+      scrollbar-3dlight-color: #646464;
+      scrollbar-highlight-color: #646464;
+      scrollbar-track-color: #000;
+      scrollbar-arrow-color: #000;
+      scrollbar-shadow-color: #646464;
+      scrollbar-darkshadow-color: #646464;
+    }      
+
+    ::-webkit-scrollbar { width: 8px; height: 3px;}
+    ::-webkit-scrollbar-button {  background-color: #666; }
+    ::-webkit-scrollbar-track {  background-color: #646464;}
+    ::-webkit-scrollbar-track-piece { background-color: #000;}
+    ::-webkit-scrollbar-thumb { background-color: #666; border-radius: 3px;}
+    ::-webkit-scrollbar-corner { background-color: #646464;}
+    ::-webkit-resizer { background-color: #666;}      
+
+    .l_abertas{ width : 70%; }
+    .l_abertas table { border: 1px solid black; }
+    .l_abertas td { min-width: 60px; font-size: 15px; text-align:center; }
+    .l_abertas th { min-width: 60px; font-weight: normal; font-size: 10px; }
+    .l_abertas thead { display: block; }
+    .l_abertas tbody { display: block; overflow: auto; overflow-x: hidden; height: 250px; }      
+
+    .l_fechadas{ width : auto; }
+    .l_fechadas table { border: 1px solid black; }
+    .l_fechadas td { min-width: 60px; font-size: 15px; text-align:center; }
+    .l_fechadas th { min-width: 60px; font-weight: normal; font-size: 10px; }
+    .l_fechadas thead { display: block; }
+    .l_fechadas tbody { display: block; overflow: auto; overflow-x: hidden; height: 250px; }      
+
+    .encerradas{ height: 100px; }      
+
+    .l_resultados{ width:90%; }
+    .l_resultados td{ text-align: left; }
+    .l_resultados td, th{ height: 30px; }
+    .l_resultados th{
+      font-weight: normal;
+      font-size: 12px;
+    }      
+    
+
+    .l_configuracoes{ width:90%; }
+    .l_configuracoes td{ text-align: center;}
+    .l_configuracoes td, th{ height: 30px; }
+    .l_configuracoes th{
+      font-weight: normal;
+      font-size: 12px;
+      text-align: left;
+    }      
+
+    .l_ativos{ width:70%; }
+    .l_ativos td {
+      min-width: 60px;
+      font-size: 15px;
+      text-align:center;
+    }
+    .l_ativos th {
+      min-width: 60px;
+      font-weight: normal;
+      font-size: 10px;
+    }
+    .l_ativos thead { display: block; }
+    .l_ativos tbody {
+      display: block;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      height: 200px;
+    }      
+
+    #data{
+      background-color: #b2b2b2;      
+
+    }
+  </style>
+</head>
+
+<body>
+    <table border = 0 style = "overflow-y: scroll;">
+        <tr>
+            <td width=20%  class="border_yellow">
+                <div><img src="images/todo_icon_2.JPG" width="95%"></div>
+            </td>
+            <td width = 60% class="border_yellow">
+                    <p align = center style="font-size: 20px">
+                        <strong>TESTE DE OPERAÇÕES</strong>
+                    </p>
+                <div align="center" id="refresh">
+                      <p style="font-size: 20px"><strong> 
+                        <div id="time_hour"> </div>
+                      </strong></p>
+                </div>
+            </td>
+            <form method = "GET" action="/users/logout">
+                <td align="center" width=20% class="border_yellow">
+                    <h1></h1>
+                    <!--<input type="submit" class="bbutton" value="SAIR">-->
+                    <input type="submit" class="bbutton" value="SAIR">
+                    <h1></h1>
+                    <div align="center" style="font-size: 12px;"><center><strong>versão 201510.1</strong></center></div>
+                </td>
+            </form>
+        </tr>
+        <tr style="height: 20px;"></tr>
+        <tr style="height: 200px;">
+            <td class="yellow_td" style="vertical-align:top;" >
+                <center>
+                <p style="font-size: 15px;"><strong>CONFIGURAÇÕES</p></strong>
+                <form id="myForm" method = "POST">
+                    <table class="l_configuracoes">
+                        <!--<input type="date" id="data" name="inicio_dos_testes" value="{{placement.date|date:'Y-m-d' }}" min="2018-04-18" max="2018-09-10">-->
+                        <tr><th><label for="id_inicio_dos_testes">Inicio dos testes</label></th><td><input type="date" id="data" name="inicio_dos_testes" value="{{placement.date|date:'Y-m-d' }}" min="2018-04-01" max="2018-10-05"></td></tr>
+                        <tr><th><label for="id_blocos">Blocos</label></th><td><select name="blocos"  class= "choice_color" id="id_blocos">
+                          <option value="B1">B1</option>                        
+
+                          <option value="B2">B2</option>                        
+
+                          <option value="B3">B3</option>                        
+
+                          <option value="B4">B4</option>                        
+
+                          <option value="B5">B5</option>                        
+
+                        </select></td></tr>
+                        <tr><th><label for="id_pregões">Pregões</label></th><td><select name="pregões" id="id_pregões" class= "choice_color">
+                          <option value="1">1</option>                      
+
+                          <option value="2">2</option>                      
+
+                          <option value="3">3</option>                      
+
+                          <option value="4">4</option>                      
+
+                          <option value="5">5</option>                      
+
+                          <option value="6">6</option>                      
+
+                          <option value="7">7</option>                      
+
+                          <option value="8">8</option>                      
+
+                          <option value="9">9</option>                      
+
+                        </select></td></tr>
+                        <tr><th><label for="id_frequência">Frequência</label></th><td><select name="frequência" id="id_frequência" class= "choice_color">
+                          <option value="0.05">0.05</option>                        
+
+                          <option value="0.10">0.10</option>                        
+
+                          <option value="0.15">0.15</option>                        
+
+                          <option value="0.20">0.20</option>                        
+
+                        </select></td></tr>
+                        <tr><th><label for="id_tempo_entre_pregões">Tempo entre pregões</label></th><td><select name="tempo_entre_pregões" id="id_tempo_entre_pregões" class= "choice_color">
+                          <option value="15">15s</option>                       
+
+                          <option value="30">30s</option>                       
+
+                          <option value="60">60s</option>                       
+
+                        </select></td></tr>
+                        <tr>
+                            <td colspan = "2">
+                                <center>
+                                <input type="submit" name="reset" class="bbutton" value="PROCESSAR">
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                </center>
+            </td>
+            <td style="vertical-align:top;" style="border-left: 3px solid yellow;" class="yellow_td">
+                <center>
+                  <h3>OPERAÇÕES ABERTAS</h3>
+                </center>
+                <center>
+                <div id = 'db_abertas' class="l_abertas"></div>
+                </center>
+            </td>
+            <td style="vertical-align:top;" rowspan="2">
+                <center>
+                    <p style="font-size: 20px"><strong>ATIVOS</p></strong>
+                    <div id="Ativos" class="l_ativos"></div>
+                </center>
+            </td>
+        </tr>
+        <tr style="height: 200px;">
+            <td class="yellow_td">
+                <center><p style="font-size: 15px;"><strong>RESULTADOS</p></strong>
+                    <table class= "l_resultados" style="font-size: 12px;">
+                        <tr>
+                            <td>Corrente</td>
+                            <td align = "right"><div id="corrente"></div></td>
+                        </tr>
+                        <tr>
+                            <td>Consolidado</td>
+                            <td align = "right"><div id="consolidado"></div></td>
+                        </tr>
+                        <tr>
+                            <td>Número de Pregões</td>
+                            <td align = "right"><div id="numero_preg"></div></td>
+                        </tr>
+                        <tr>
+                            <td>Acumulado/período</td>
+                            <td align = "right"><div id="acumulado_periodo"></div></td>
+                        </tr>
+                        <tr>
+                          <form method = "POST" >
+                            {% csrf_token %}
+                            <td colspan = "2">
+                                <center>
+                                <input type="submit" name="pause" class="bbutton" value="PAUSE">
+                                </center>
+                            </td>
+                          </form> 
+                        </tr>
+                </table>
+            </center>
+            </td>
+            <td style="vertical-align:top;" style="border-left: 3px solid yellow;" class="yellow_td encerradas">
+                <center>
+                    <h3>OPERAÇÕES ENCERRADAS</h3>
+                    <table class="l_fechadas">
+                      <thead>
+                        <tr>
+                          <th>openum</th>
+                          <th>time</th>
+                          <th>rull</th>
+                          <th>operation</th>
+                          <th>symbol</th>
+                          <th>amount</th>
+                          <th>price</th>
+                          <th>value</th>
+                          <th>time2</th>
+                          <th>price2</th>
+                          <th>value2</th>
+                          <th>result</th>
+                        </tr>
+                      </thead>
+                      <tbody id="db_encerradas">
+                        
+                      </tbody>
+                    </table>
+                    <!--<div id="db_encerradas" class="l_fechadas"></div>-->
+                </center>
+            </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td style="font-size: 9px;"><center>Copyright HINDI Investment Co 2018</center></td>
+          <td></td>
+        </tr>
+
+    </table>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+</body>
+  
+<script>
+
+  function loadTableData(pregaoData){
+    const tableBody = document.getElementById('db_encerradas');
+    let dataHtml = '';
+
+    for(let pregao of pregaoData){
+      dataHtml += `<tr><td>${pregao.openum}</td><td>${pregao.time2}</td><td>${pregao.rull2}</td><td>${pregao.operation2}</td><td>${pregao.symbol}</td><td>${pregao.amount}</td><td>${pregao.price2}</td><td>${pregao.value2}</td><td>${pregao.time}</td><td>${pregao.price}</td><td>${pregao.value}</td><td>${pregao.result}</td></tr>`;
+      //console.log(dataHtml)
+      tableBody.innerHTML = dataHtml;
+    }
+  }
+
+  console.log(window.location)
+  var loc = window.location
+  var formData = $("#form")
+
+  var wsStart = 'ws://'
+  if (loc.protocol == 'https:'){
+    wsStart = 'wss://'
+  }
+
+  console.log(loc)
+  var endpoint = wsStart + loc.host + loc.pathname
+  console.log(endpoint)
+
+  var socket = new WebSocket(endpoint)
+
+  socket.onmessage = function(e){
+
+    var obj = JSON.parse(e.data)
+    var closed = ''
+    
+    let pregaoData = obj[2];
+    //let elem = document.getElementById('db_abertas').innerHTML = obj[1];
+    document.getElementById('db_abertas').innerHTML = obj[1];
+    //document.getElementById('db_encerradas').innerHTML = obj[2];
+    document.getElementById('time_hour').innerHTML = obj[3];
+    document.getElementById('Ativos').innerHTML = obj[4];
+    document.getElementById('corrente').innerHTML = obj[5];
+    document.getElementById('consolidado').innerHTML = obj[6];
+    document.getElementById('numero_preg').innerHTML = obj[7];
+    document.getElementById('acumulado_periodo').innerHTML = obj[8];
+    loadTableData(pregaoData);
+    window.onload = () => {
+      loadTableData(pregaoData);
+      //loadTableDataAbertas(pregaoAbertas);
+    }
+    var d = $('#db_encerradas');
+    d.scrollTop(d.prop("scrollHeight"));
+
+  }
+
+  socket.onopen = function(e){
+    console.log("open", e)
+  }
+
+  socket.onerror = function(e){
+    console.log("error", e)
+  }
+
+  socket.onclose = function(e){
+    console.log("close", e)
+  }
+
+
+
+  function loadTableDataAbertas(pregaoDataAbertas){
+    const tableBodyAbertas = document.getElementById('db_abertas');
+    let dataHtml = '';
+
+    for(let pregao of pregaoDataAbertas){
+      dataHtml += `<tr><td>${pregao.openum}</td><td>${pregao.time}</td><td>${pregao.operation}</td><td>${pregao.symbol}</td><td>${pregao.amount}</td><td>${pregao.price}</td><td>${pregao.value}</td></tr>`;
+      //console.log(dataHtml)
+      
+      tableBodyAbertas.innerHTML = dataHtml;
+
+    }
+  }
+
+</script>
+
+</html>
